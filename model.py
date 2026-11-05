@@ -34,8 +34,12 @@ def exp_shifted(logits):
     """Subtract per-row max from logits and exponentiate elementwise."""
     return np.exp(logits-row_max(logits))
 
-# Step 5 - stable_softmax (not yet solved)
-# TODO: implement
+# Step 5 - stable_softmax
+def stable_softmax(logits):
+    # Every classifier in this project converts raw scores into probabilities, and doing it in a numerically safe way is the foundation 
+    # for the cross-entropy loss that follows.
+    # softmax(z)_i= exp(z_i)/ sum_j (exp(z_j)) 
+    return exp_shifted(logits)/ row_sum(exp_shifted(logits))
 
 # Step 6 - one_hot (not yet solved)
 # TODO: implement
